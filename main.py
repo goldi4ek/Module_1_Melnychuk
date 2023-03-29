@@ -1,37 +1,34 @@
-import os
-import re
 
 
-def open_file(name):
-    inputFile = open(name, "r")
-    linesInFile = []
-    for line in inputFile:
-        linesInFile.append(line.replace('\n', ''))
-    return linesInFile
+class FileChecker:
+    def open_file(self, name):
+        inputFile = open(name, "r")
+        linesInFile = []
+        for line in inputFile:
+            linesInFile.append(line.replace('\n', ''))
+        return linesInFile
 
+    def check_similar(self, file1, file2):
+        return set(file1).intersection(file2)
 
-def check_similar(file1, file2):
-    return set(file1).intersection(file2)
+    def check_different(self, file1, file2):
+        return set(file1).symmetric_difference(file2)
 
-
-def check_different(file1, file2):
-    return set(file1).symmetric_difference(file2)
-
-
-def wrote_file(file, path):
-    pathToFile = f"{path}.txt"
-    wroteInFile = open(pathToFile, "w")
-    for line in file:
-        wroteInFile.write(f"{line}\n")
+    def wrote_file(self, file, path):
+        pathToFile = f"{path}.txt"
+        wroteInFile = open(pathToFile, "w")
+        for line in file:
+            wroteInFile.write(f"{line}\n")
 
 
 def main():
-    file1 = open_file("inputFile1.txt")
-    file2 = open_file("inputFile2.txt")
-    similar_lines = check_similar(file1, file2)
-    different_lines = check_different(file1, file2)
-    wrote_file(similar_lines, "same")
-    wrote_file(different_lines, "diff")
+    fileChecker = FileChecker()
+    file1 = fileChecker.open_file("inputFile1.txt")
+    file2 = fileChecker.open_file("inputFile2.txt")
+    similar_lines = fileChecker.check_similar(file1, file2)
+    different_lines = fileChecker.check_different(file1, file2)
+    fileChecker.wrote_file(similar_lines, "same")
+    fileChecker.wrote_file(different_lines, "diff")
 
 
 if __name__ == "__main__":
