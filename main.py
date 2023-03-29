@@ -18,13 +18,20 @@ def check_different(file1, file2):
     return set(file1).symmetric_difference(file2)
 
 
+def wrote_file(file, path):
+    pathToFile = f"{path}.txt"
+    wroteInFile = open(pathToFile, "w")
+    for line in file:
+        wroteInFile.write(f"{line}\n")
+
+
 def main():
     file1 = open_file("inputFile1.txt")
     file2 = open_file("inputFile2.txt")
     similar_lines = check_similar(file1, file2)
     different_lines = check_different(file1, file2)
-    print(similar_lines)
-    print(different_lines)
+    wrote_file(similar_lines, "same")
+    wrote_file(different_lines, "diff")
 
 
 if __name__ == "__main__":
