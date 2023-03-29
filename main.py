@@ -6,6 +6,7 @@ class FileChecker:
         linesInFile = []
         for line in inputFile:
             linesInFile.append(line.replace('\n', ''))
+        print(linesInFile)
         return linesInFile
 
     def check_similar(self, file1, file2):
